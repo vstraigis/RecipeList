@@ -11,7 +11,7 @@ import java.io.IOException;
 public class GuiMain implements ActionListener {
 
     JFrame f;
-    Panel menu, myrcp, newrcp;
+    Panel menu, myrcp, newrcp, inspr;
     JButton myRecipes, newRecipe, inspiration, back1, back2, back3;
 
     public GuiMain(){
@@ -33,6 +33,7 @@ public class GuiMain implements ActionListener {
 
 
 
+
     }
 
 
@@ -43,9 +44,16 @@ public class GuiMain implements ActionListener {
         myrcp.setBounds(0,0,360, 500);
         back1 = new JButton("Back");
         myrcp.add(back1);
-        back1.setBounds(110, 100, 120, 40);
+        back1.setBounds(110, 410, 120, 40);
         back1.setBackground(Color.decode("#F1FFFA"));
         back1.addActionListener(this);
+        //display "My recipes" on the top of the page
+        JLabel title = new JLabel("My Recipes");
+        title.setFont(new Font("Arial", Font.BOLD, 30));
+        title.setForeground(Color.decode("#785964"));
+        myrcp.add(title);
+        title.setBounds(95, 10, 200, 50);
+
 
 
     }
@@ -57,7 +65,7 @@ public class GuiMain implements ActionListener {
         newrcp.setBounds(0,0,360, 500);
         back2 = new JButton("Back");
         newrcp.add(back2);
-        back2.setBounds(110, 100, 120, 40);
+        back2.setBounds(110, 410, 120, 40);
         back2.setBackground(Color.decode("#F1FFFA"));
         back2.addActionListener(this);
 
@@ -106,6 +114,27 @@ public class GuiMain implements ActionListener {
         f.add(menu);
 
     }
+    private void createinspiration() {
+        inspr = new Panel();
+        inspr.setLayout(null);
+        inspr.setVisible(true);
+        inspr.setBounds(0,0,360, 500);
+        back3 = new JButton("Back");
+        inspr.add(back3);
+        back3.setBounds(110, 410, 120, 40);
+        back3.setBackground(Color.decode("#F1FFFA"));
+        back3.addActionListener(this);
+
+        ImageIcon background1 = new ImageIcon("Resources/original.jpg");
+        Image img1 = background1.getImage();
+        Image newImg1 = img1.getScaledInstance(360, 500, java.awt.Image.SCALE_SMOOTH);
+        background1 = new ImageIcon(newImg1);
+        JLabel backgroundLabel1 = new JLabel(background1);
+        backgroundLabel1.setBounds(0, 0, 360, 500);
+        inspr.add(backgroundLabel1);
+
+
+    }
 
 
     @Override
@@ -120,6 +149,11 @@ public class GuiMain implements ActionListener {
             newrecipe();
             f.add(newrcp);
         }
+        if (e.getSource()==inspiration){
+            f.remove(menu);
+            createinspiration();
+            f.add(inspr);
+        }
 
         if (e.getSource()==back1){
             f.remove(myrcp);
@@ -128,6 +162,12 @@ public class GuiMain implements ActionListener {
         }
         if (e.getSource()==back2){
             f.remove(newrcp);
+            createMenu();
+            f.add(menu);
+        }
+        if (e.getSource()==back3){
+            System.out.println("back pressed");
+            f.remove(inspr);
             createMenu();
             f.add(menu);
         }
