@@ -1,18 +1,18 @@
 package GUI;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class GuiMain implements ActionListener {
 
     JFrame f;
     Panel menu, myrcp, newrcp, inspr;
     JButton myRecipes, newRecipe, inspiration, back1, back2, back3;
+
+    CreateButton cb = new CreateButton();
 
     public GuiMain(){
         createFrame("Recipe Book",360, 500);
@@ -31,9 +31,6 @@ public class GuiMain implements ActionListener {
         f.setIconImage(new ImageIcon("Resources/121895.png").getImage());
         f.getContentPane().setBackground(Color.decode("#D5C7BC"));
 
-
-
-
     }
 
 
@@ -42,12 +39,13 @@ public class GuiMain implements ActionListener {
         myrcp.setLayout(null);
         myrcp.setVisible(true);
         myrcp.setBounds(0,0,360, 500);
-        back1 = new JButton("Back");
+
+        back1 = cb.createSimpleButton("Back");
         myrcp.add(back1);
         back1.setBounds(110, 410, 120, 40);
-        back1.setBackground(Color.decode("#F1FFFA"));
         back1.addActionListener(this);
-        //display "My recipes" on the top of the page
+
+
         JLabel title = new JLabel("My Recipes");
         title.setFont(new Font("Arial", Font.BOLD, 30));
         title.setForeground(Color.decode("#785964"));
@@ -63,12 +61,11 @@ public class GuiMain implements ActionListener {
         newrcp.setLayout(null);
         newrcp.setVisible(true);
         newrcp.setBounds(0,0,360, 500);
-        back2 = new JButton("Back");
-        newrcp.add(back2);
-        back2.setBounds(110, 410, 120, 40);
-        back2.setBackground(Color.decode("#F1FFFA"));
-        back2.addActionListener(this);
 
+        back2 = cb.createSimpleButton("Back");
+        back2.setBounds(110, 410, 120, 40);
+        back2.addActionListener(this);
+        newrcp.add(back2);
     }
 
     private void createMenu() {
@@ -87,24 +84,17 @@ public class GuiMain implements ActionListener {
         backgroundLabel.setBounds(0, 0, 360, 500);
 
 
-        myRecipes = new JButton("My Recipes");
-        newRecipe = new JButton("New Recipe");
-        inspiration = new JButton("Inspiration");
-
-
+        myRecipes = cb.createSimpleButton("My recipes");
+        newRecipe = cb.createSimpleButton("New recipe");
+        inspiration = cb.createSimpleButton("Inspiration");
 
         menu.add(myRecipes);
         menu.add(newRecipe);
         menu.add(inspiration);
 
-
         myRecipes.setBounds(120, 100, 120, 40);
         newRecipe.setBounds(120, 200, 120, 40);
         inspiration.setBounds(120, 300, 120, 40);
-
-        myRecipes.setBackground(Color.decode("#F1FFFA"));
-        newRecipe.setBackground(Color.decode("#F1FFFA"));
-        inspiration.setBackground(Color.decode("#F1FFFA"));
 
         myRecipes.addActionListener(this);
         newRecipe.addActionListener(this);
@@ -119,11 +109,11 @@ public class GuiMain implements ActionListener {
         inspr.setLayout(null);
         inspr.setVisible(true);
         inspr.setBounds(0,0,360, 500);
-        back3 = new JButton("Back");
+        back3 = cb.createSimpleButton("Back");
+        back3.setBounds(110, 410, 120, 40);;
         inspr.add(back3);
-        back3.setBounds(110, 410, 120, 40);
-        back3.setBackground(Color.decode("#F1FFFA"));
         back3.addActionListener(this);
+
 
         ImageIcon background1 = new ImageIcon("Resources/original.jpg");
         Image img1 = background1.getImage();
@@ -166,7 +156,6 @@ public class GuiMain implements ActionListener {
             f.add(menu);
         }
         if (e.getSource()==back3){
-            System.out.println("back pressed");
             f.remove(inspr);
             createMenu();
             f.add(menu);
