@@ -92,9 +92,9 @@ public class GuiMain implements ActionListener {
         menu.add(newRecipe);
         menu.add(inspiration);
 
-        myRecipes.setBounds(120, 100, 120, 40);
-        newRecipe.setBounds(120, 200, 120, 40);
-        inspiration.setBounds(120, 300, 120, 40);
+        myRecipes.setBounds(80, 75, 200, 60);
+        newRecipe.setBounds(80, 170, 200, 60);
+        inspiration.setBounds(80, 300, 200, 60);
 
         myRecipes.addActionListener(this);
         newRecipe.addActionListener(this);
@@ -133,7 +133,7 @@ public class GuiMain implements ActionListener {
             f.remove(menu);
             myrecipes();
             f.add(myrcp);
-    }
+        }
         if (e.getSource()==newRecipe){
             f.remove(menu);
             newrecipe();
@@ -163,7 +163,7 @@ public class GuiMain implements ActionListener {
 
 
 
-}
-
-
     }
+
+
+}
