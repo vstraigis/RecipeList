@@ -8,9 +8,12 @@ import java.awt.event.ActionListener;
 
 public class GuiMain implements ActionListener {
 
-    JFrame f;
-    Panel menu, myrcp, newrcp, inspr;
-    JButton myRecipes, newRecipe, inspiration, back1, back2, back3;
+    private JFrame f;
+    private Panel menu, myrcp, newrcp, inspr;
+    private JPanel newRcpPanel;
+    private JButton myRecipes, newRecipe, inspiration, back1, back2, back3;
+    private JButton save2, addIngr, rmIngr, viewGuide;
+    private JTextField newRecipeTitle;
 
     CreateButton cb = new CreateButton();
 
@@ -57,15 +60,42 @@ public class GuiMain implements ActionListener {
     }
 
     private void newrecipe() {
+
+
         newrcp = new Panel();
-        newrcp.setLayout(null);
-        newrcp.setVisible(true);
-        newrcp.setBounds(0,0,360, 500);
+        newRecipeTitle = new JTextField();
+        newRcpPanel = new JPanel();
+        CreateRecipe cr = new CreateRecipe(newrcp, newRecipeTitle, newRcpPanel);
 
         back2 = cb.createSimpleButton("Back");
-        back2.setBounds(110, 410, 120, 40);
+        back2.setBounds(25, 410, 120, 40);
         back2.addActionListener(this);
         newrcp.add(back2);
+
+        save2 = cb.createSimpleButton("Save");
+        save2.setBounds(195, 410, 120, 40);
+        save2.addActionListener(this);
+        newrcp.add(save2);
+
+        addIngr = cb.createSimpleButton("+");
+        addIngr.setBounds(265, 75, 30, 30);
+        addIngr.addActionListener(this);
+        newrcp.add(addIngr);
+
+        rmIngr = cb.createSimpleButton("-");
+        rmIngr.setBounds(300, 75, 30, 30);
+        rmIngr.addActionListener(this);
+        newrcp.add(rmIngr);
+
+        viewGuide = cb.createSimpleButton("Guide");
+        viewGuide.setBounds(265, 120, 65, 35);
+        viewGuide.addActionListener(this);
+        newrcp.add(viewGuide);
+
+
+
+
+
     }
 
     private void createMenu() {
