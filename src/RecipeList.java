@@ -12,15 +12,15 @@ public class RecipeList {
         return recipesMap.get(recipeId);
     }
 
-    public static Recipe addRecipe(Recipe recipe) {
-        recipesMap.put(recipe.getId().toString(), recipe);
-        return recipe;
-    }
+//     public static Recipe addRecipe(Recipe recipe) {
+//         recipesMap.put(recipe.getId().toString(), recipe);
+//         return recipe;
+//     }
 
-    public static Recipe updateRecipe(Recipe recipe) {
-        recipesMap.put(recipe.getId().toString(), recipe);
-        return recipe;
-    }
+//     public static Recipe updateRecipe(Recipe recipe) {
+//         recipesMap.put(recipe.getId().toString(), recipe);
+//         return recipe;
+//     }
 
     public static void deleteRecipe(String recipeId) {
         recipesMap.remove(recipeId);
