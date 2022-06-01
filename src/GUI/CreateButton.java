@@ -15,6 +15,7 @@ public class CreateButton {
         button.setBackground(new Color(210,100,100));
         button.setFont(new Font("Lucida Handwriting", Font.BOLD, 15));
         button.setBorder(BorderFactory.createEtchedBorder());
+        button.setFocusable(false);
         Border line = new LineBorder(Color.BLACK);
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
