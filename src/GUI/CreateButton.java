@@ -12,14 +12,14 @@ public class CreateButton {
     JButton createSimpleButton(String text) {
         JButton button = new JButton(text);
         button.setForeground(Color.BLACK);
-        button.setBackground(new Color(210,100,100));
+        button.setBackground(new Color(210, 100, 100));
         button.setFont(new Font("Lucida Handwriting", Font.BOLD, 15));
         button.setBorder(BorderFactory.createEtchedBorder());
         button.setFocusable(false);
         Border line = new LineBorder(Color.BLACK);
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
-       // button.setBorder(compound);
+        // button.setBorder(compound);
         return button;
     }
 }
