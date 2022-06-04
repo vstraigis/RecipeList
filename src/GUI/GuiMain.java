@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 public class GuiMain implements ActionListener {
 
@@ -61,12 +62,14 @@ public class GuiMain implements ActionListener {
     //saveGuide is to store whatever we write in guide text area into a string "guide"
     private JTextField newRecipeTitle;
     //newRecipeTitle - texd field for the name of a recipe in newrcp panel
-    private JScrollPane scrollPane;
+    private JScrollPane scrollPane, scrollingRecipes;
     //scrollPane - scrolling pane where newRcpPanel is stored, where ingredients are stored
+    //scrollingRecipes - scrolling pane where data about recipes is stored
     private String guide;
     //guide - string where contents of text area of viewGuide are stored
-    private JTextArea guideArea;
+    private JTextArea guideArea, recipeTextArea;
     //guideArea - text area in viewGuide
+    //recipeTextArea - text area in ViewRecipes
 
     CreateButton cb = new CreateButton(); //for default any button creation
 
@@ -91,9 +94,22 @@ public class GuiMain implements ActionListener {
     //ViewRecipes frame
     private void myrecipes() {
         myrcp = new Panel();
+        recipeTextArea = new JTextArea();
+        scrollingRecipes = new JScrollPane(recipeTextArea);
+
         myrcp.setLayout(null);
         myrcp.setVisible(true);
         myrcp.setBounds(0, 0, 360, 500);
+
+        scrollingRecipes.setBounds(25, 70, 250, 300);
+        scrollingRecipes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        recipeTextArea.setBounds(25, 70, 250, 300);
+        recipeTextArea.setBorder(new LineBorder(Color.BLACK));
+        scrollingRecipes.getViewport().setBackground(Color.WHITE);
+        scrollingRecipes.getViewport().add(recipeTextArea);
+
+        myrcp.add(scrollingRecipes);
+
 
         back1 = cb.createSimpleButton("Back");
         myrcp.add(back1);
