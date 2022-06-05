@@ -58,11 +58,9 @@ public class Recipe {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Recipe{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", ingredients=" + ingredients +
-                ", comments=" + comments +
-                '}';
+        return
+                id + ". " + name + '\n' +
+                "Ingredients: " + ingredients + "\n" +
+                "Comments: " + comments + "\n";
     }
 }

@@ -18,6 +18,8 @@ import javax.swing.border.LineBorder;
 
 public class GuiMain implements ActionListener {
 
+    RecipeList recipeList = new RecipeList();
+
 //    TODO: UX improvements:
 //    Success message after save of recipe/ ingredient
 //    Implement recipe updating functionality
@@ -121,6 +123,9 @@ public class GuiMain implements ActionListener {
         title.setForeground(Color.decode("#785964"));
         myrcp.add(title);
         title.setBounds(95, 10, 200, 50);
+        for (int i = 1; i <= recipeList.getAllRecipes().size(); i++) {
+            recipeTextArea.append(recipeList.getRecipe(i).toString());
+        }
     }
 
     //CreateRecipe frame
@@ -228,6 +233,7 @@ public class GuiMain implements ActionListener {
     //NEEDED FOR ADDING INGREDIENTS WHILE CREATING RECIPE
     private int countAddIngr = 0;  //Counts how many ingredients we are using
     private List<JLabel> listOfLabels = new ArrayList<JLabel>(); //List of numbers of the ingredients (1,2,...)
+    private List<JLabel> listOfRecipeLabels = new ArrayList<JLabel>(); //List of numbers of the ingredients (1,2,...)
     private List<JTextArea> listOfTextAreas = new ArrayList<JTextArea>(); //List of text areas of ingredients
 
 
@@ -328,7 +334,6 @@ public class GuiMain implements ActionListener {
             }
 
             Recipe recipe = new Recipe(newRecipeTitle.getText(), listOfIngredients, guide);
-            RecipeList recipeList = new RecipeList();
             recipeList.addRecipe(recipe);
             System.out.println(recipeList.getAllRecipes());
         }
