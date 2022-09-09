@@ -1,4 +1,4 @@
-** Recipe list made in java, List of available features:**
+** Recipe list made in java with List of available features:**
 
 - Create your own recipe. That consists of:
 
