@@ -1,0 +1,16 @@
+INSTRUCTIONS:
+
+When you start an application you will be faced with the main menu, which consists of 3 choices:
+1.View the recipes
+2.Create a recipe
+3.Inspiration
+
+During every session you will be able to create your recipes by going into the "CreateRecipe" button.
+There you will be able to name your recipe, add ingredients and add specific instructions or general
+comments on how this dish should be cooked. Once you are done, press save and go back to the main menu!
+
+When you have created at least one recipe, you can navigate to the "ViewRecipes" section. There you will
+find a scrollable text area, where information will be displayed about all of your created recipes.
+
+Lastly you have an option to inspire yourself by pressing the "Inspiration" button and enjoying the real 
+state of the art!

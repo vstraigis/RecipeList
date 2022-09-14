@@ -16,13 +16,11 @@ public class RecipeList {
 
     public static Recipe addRecipe(Recipe recipe) {
         recipesMap.put(recipe.getId(), recipe);
-        //recipesMap.put(recipe.getId().toString(), recipe);
         return recipe;
     }
 
     public static Recipe updateRecipe(Recipe recipe) {
         recipesMap.put(recipe.getId(), recipe);
-        //recipesMap.put(recipe.getId().toString(), recipe);
         return recipe;
     }
 

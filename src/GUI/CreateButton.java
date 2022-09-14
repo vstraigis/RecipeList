@@ -1,10 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class CreateButton {
@@ -16,10 +12,6 @@ public class CreateButton {
         button.setFont(new Font("Lucida Handwriting", Font.BOLD, 15));
         button.setBorder(BorderFactory.createEtchedBorder());
         button.setFocusable(false);
-        Border line = new LineBorder(Color.BLACK);
-        Border margin = new EmptyBorder(5, 15, 5, 15);
-        Border compound = new CompoundBorder(line, margin);
-        // button.setBorder(compound);
         return button;
     }
 }

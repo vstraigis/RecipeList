@@ -4,10 +4,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-/*
-    Creates a new frame for our guide when creating a recipe.
- */
-
 
 public class RecGuide {
 

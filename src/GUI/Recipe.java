@@ -60,7 +60,7 @@ public class Recipe {
     public java.lang.String toString() {
         return
                 id + ". " + name + '\n' +
-                "Ingredients: " + ingredients + "\n" +
-                "Comments: " + comments + "\n";
+                        "Ingredients: " + ingredients + "\n" +
+                        "Comments: " + comments + "\n";
     }
 }

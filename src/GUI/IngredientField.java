@@ -1,18 +1,8 @@
 package GUI;
 
-/*
-    Norejau naudoti sukurti ingridientu eile, bet pagal pavyzdi
-    tiesiog nukopinau viska ir palikau GuiMain action listenere
-
-    !!!
-    Siuo metu sita klase neturi jokios reiksmes
-    !!!
- */
-
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class IngredientField {
 
@@ -25,7 +15,6 @@ public class IngredientField {
     IngredientField(JPanel panel, Panel newrcp, int count) {
 
         this.count = count;
-
 
         newrcp.setLayout(null);
         newrcp.setVisible(true);

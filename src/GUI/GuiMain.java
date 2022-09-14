@@ -38,42 +38,19 @@ public class GuiMain implements ActionListener {
 //    Remove unused code, leave only useful comments. All comments should follow the same structure
 
 
-    private JFrame f, guideFrame;
+    private JFrame mainWindowFrame, guideFrame;
     // TODO: refactor naming. Names should speak for themselves, "f" or similar names should not be present
     // TODO: remove unused code, console.logs
-    //f - frame of the main window
-    //guideFrame - frame of the popup window when writing comments for a recipe
-    private Panel menu, myrcp, newrcp, inspr;
-    //menu - main panel in frame
-    //myrcp - ViewRecipe panel
-    //newrcp - CreateRecipe panel
-    //insp - Inspiration panel
-    private JPanel newRcpPanel;
-    //newRcpPanel - jpanel for adding ingridients in CreateRecipe panel
-    private JButton myRecipes, newRecipe, inspiration;
-    //Main three buttons in our main menu
-    private JButton back1, back2, back3;
-    //back1 is back from ViewRecipes to the main menu
-    //back2 is back from CreateRecipe to the main menu
-    //back3 is back from Inspiration to main menu
-    private JButton save2, addIngr, rmIngr, viewGuide, saveGuide;
-    //save2 is to store all info in CreateRecipe to our Recipe class
-    //addIngr (+) is to add a text field to write an ingredient
-    //rmIngr (-) is to remove last text field
-    //viewGuide is to open a new frame where comments can be written
-    //saveGuide is to store whatever we write in guide text area into a string "guide"
-    private JTextField newRecipeTitle;
-    //newRecipeTitle - texd field for the name of a recipe in newrcp panel
-    private JScrollPane scrollPane, scrollingRecipes;
-    //scrollPane - scrolling pane where newRcpPanel is stored, where ingredients are stored
-    //scrollingRecipes - scrolling pane where data about recipes is stored
+    private Panel menu, recipe, newRecipe, inspiration;
+    private JPanel newRecipePanel;
+    private JButton myRecipesButton, newRecipeButton, inspirationButton;
+    private JButton backButton1, backButton2, backButton3;
+    private JButton saveButton, addIngredientButton, removeIngredientButton, viewGuideButton, saveGuideButton;
+    private JScrollPane scrollPane, scrollingRecipesPane;
     private String guide;
-    //guide - string where contents of text area of viewGuide are stored
-    private JTextArea guideArea, recipeTextArea;
-    //guideArea - text area in viewGuide
-    //recipeTextArea - text area in ViewRecipes
+    private JTextArea guideArea, recipeTextArea, newRecipeTitle;
 
-    CreateButton cb = new CreateButton(); //for default any button creation
+    CreateButton createButton = new CreateButton();
 
 
     public GuiMain() {
@@ -81,47 +58,46 @@ public class GuiMain implements ActionListener {
         createMenu();
     }
 
-    //Main menu frame
     private void createFrame(String title, int width, int height) {
-        f = new JFrame(title);
-        f.setLayout(null);
-        f.setVisible(true);
-        f.setSize(width, height);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setResizable(false);
-        f.setIconImage(new ImageIcon("Resources/121895.png").getImage());
-        f.getContentPane().setBackground(Color.decode("#D5C7BC"));
+        mainWindowFrame = new JFrame(title);
+        mainWindowFrame.setLayout(null);
+        mainWindowFrame.setVisible(true);
+        mainWindowFrame.setSize(width, height);
+        mainWindowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainWindowFrame.setResizable(false);
+        mainWindowFrame.setIconImage(new ImageIcon("Resources/121895.png").getImage());
+        mainWindowFrame.getContentPane().setBackground(Color.decode("#D5C7BC"));
     }
 
     //ViewRecipes frame
-    private void myrecipes() {
-        myrcp = new Panel();
+    private void createMyRecipesFrame() {
+        recipe = new Panel();
         recipeTextArea = new JTextArea();
-        scrollingRecipes = new JScrollPane(recipeTextArea);
+        scrollingRecipesPane = new JScrollPane(recipeTextArea);
 
-        myrcp.setLayout(null);
-        myrcp.setVisible(true);
-        myrcp.setBounds(0, 0, 360, 500);
+        recipe.setLayout(null);
+        recipe.setVisible(true);
+        recipe.setBounds(0, 0, 360, 500);
 
-        scrollingRecipes.setBounds(25, 70, 250, 300);
-        scrollingRecipes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollingRecipesPane.setBounds(25, 70, 250, 300);
+        scrollingRecipesPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         recipeTextArea.setBounds(25, 70, 250, 300);
         recipeTextArea.setBorder(new LineBorder(Color.BLACK));
-        scrollingRecipes.getViewport().setBackground(Color.WHITE);
-        scrollingRecipes.getViewport().add(recipeTextArea);
+        scrollingRecipesPane.getViewport().setBackground(Color.WHITE);
+        scrollingRecipesPane.getViewport().add(recipeTextArea);
 
-        myrcp.add(scrollingRecipes);
+        recipe.add(scrollingRecipesPane);
 
 
-        back1 = cb.createSimpleButton("Back");
-        myrcp.add(back1);
-        back1.setBounds(110, 410, 120, 40);
-        back1.addActionListener(this);
+        backButton1 = createButton.createSimpleButton("Back");
+        recipe.add(backButton1);
+        backButton1.setBounds(110, 410, 120, 40);
+        backButton1.addActionListener(this);
 
         JLabel title = new JLabel("My Recipes");
         title.setFont(new Font("Arial", Font.BOLD, 30));
         title.setForeground(Color.decode("#785964"));
-        myrcp.add(title);
+        recipe.add(title);
         title.setBounds(95, 10, 200, 50);
         for (int i = 1; i <= recipeList.getAllRecipes().size(); i++) {
             recipeTextArea.append(recipeList.getRecipe(i).toString());
@@ -129,53 +105,53 @@ public class GuiMain implements ActionListener {
     }
 
     //CreateRecipe frame
-    private void newrecipe() {
-        newrcp = new Panel();
-        newRecipeTitle = new JTextField("<enter title>");
-        newRcpPanel = new JPanel();
+    private void createNewRecipe() {
+        newRecipe = new Panel();
+        newRecipeTitle = new JTextArea("<enter title>");
+        newRecipePanel = new JPanel();
         scrollPane = new JScrollPane();
 
-        CreateRecipe cr = new CreateRecipe(newrcp, newRecipeTitle, newRcpPanel, scrollPane);
+        CreateRecipe cr = new CreateRecipe(newRecipe, newRecipeTitle, newRecipePanel, scrollPane);
 
-        back2 = cb.createSimpleButton("Back");
-        back2.setBounds(25, 410, 120, 40);
-        back2.addActionListener(this);
-        newrcp.add(back2);
+        backButton2 = createButton.createSimpleButton("Back");
+        backButton2.setBounds(25, 410, 120, 40);
+        backButton2.addActionListener(this);
+        newRecipe.add(backButton2);
 
-        save2 = cb.createSimpleButton("Save");
-        save2.setBounds(195, 410, 120, 40);
-        save2.addActionListener(this);
-        newrcp.add(save2);
+        saveButton = createButton.createSimpleButton("Save");
+        saveButton.setBounds(195, 410, 120, 40);
+        saveButton.addActionListener(this);
+        newRecipe.add(saveButton);
 
-        addIngr = cb.createSimpleButton("+");
-        addIngr.setBounds(265, 75, 30, 30);
-        addIngr.addActionListener(this);
-        newrcp.add(addIngr);
+        addIngredientButton = createButton.createSimpleButton("+");
+        addIngredientButton.setBounds(265, 75, 30, 30);
+        addIngredientButton.addActionListener(this);
+        newRecipe.add(addIngredientButton);
 
-        rmIngr = cb.createSimpleButton("-");
-        rmIngr.setBounds(300, 75, 30, 30);
-        rmIngr.addActionListener(this);
-        newrcp.add(rmIngr);
+        removeIngredientButton = createButton.createSimpleButton("-");
+        removeIngredientButton.setBounds(300, 75, 30, 30);
+        removeIngredientButton.addActionListener(this);
+        newRecipe.add(removeIngredientButton);
 
-        viewGuide = cb.createSimpleButton("Guide");
-        viewGuide.setBounds(265, 120, 65, 35);
-        viewGuide.addActionListener(this);
-        newrcp.add(viewGuide);
+        viewGuideButton = createButton.createSimpleButton("Guide");
+        viewGuideButton.setBounds(265, 120, 65, 35);
+        viewGuideButton.addActionListener(this);
+        newRecipe.add(viewGuideButton);
     }
 
-    //Guide frame when creating a recipe
     private void createGuide() {
         guideFrame = new JFrame();
         guideArea = new JTextArea("Explain how to cook here!");
+
         RecGuide rg = new RecGuide(guideFrame, guideArea);
 
-        saveGuide = cb.createSimpleButton("Save");
-        saveGuide.setBounds(280, 300, 75, 30);
-        saveGuide.addActionListener(this);
-        guideFrame.add(saveGuide);
+        saveGuideButton = createButton.createSimpleButton("Save");
+        saveGuideButton.setBounds(280, 300, 75, 30);
+        saveGuideButton.addActionListener(this);
+        guideFrame.add(saveGuideButton);
     }
 
-    //Main menu frame
+
     private void createMenu() {
         menu = new Panel();
         menu.setLayout(null);
@@ -183,153 +159,149 @@ public class GuiMain implements ActionListener {
         menu.setBounds(-10, -10, 360, 500);
 
         ImageIcon background = new ImageIcon("Resources/resize.jpg");
-        Image img = background.getImage();
-        Image newImg = img.getScaledInstance(360, 500, java.awt.Image.SCALE_SMOOTH);
-        background = new ImageIcon(newImg);
+        Image backgroundImage = background.getImage();
+        Image newImage = backgroundImage.getScaledInstance(360, 500, java.awt.Image.SCALE_SMOOTH);
+        background = new ImageIcon(newImage);
         JLabel backgroundLabel = new JLabel(background);
         backgroundLabel.setBounds(0, 0, 360, 500);
 
-        myRecipes = cb.createSimpleButton("My recipes");
-        newRecipe = cb.createSimpleButton("New recipe");
-        inspiration = cb.createSimpleButton("Inspiration");
+        myRecipesButton = createButton.createSimpleButton("My recipes");
+        newRecipeButton = createButton.createSimpleButton("New recipe");
+        inspirationButton = createButton.createSimpleButton("Inspiration");
 
-        menu.add(myRecipes);
-        menu.add(newRecipe);
-        menu.add(inspiration);
+        menu.add(myRecipesButton);
+        menu.add(newRecipeButton);
+        menu.add(inspirationButton);
 
-        myRecipes.setBounds(80, 75, 200, 60);
-        newRecipe.setBounds(80, 170, 200, 60);
-        inspiration.setBounds(80, 300, 200, 60);
+        myRecipesButton.setBounds(80, 75, 200, 60);
+        newRecipeButton.setBounds(80, 170, 200, 60);
+        inspirationButton.setBounds(80, 300, 200, 60);
 
-        myRecipes.addActionListener(this);
-        newRecipe.addActionListener(this);
-        inspiration.addActionListener(this);
+        myRecipesButton.addActionListener(this);
+        newRecipeButton.addActionListener(this);
+        inspirationButton.addActionListener(this);
 
         menu.add(backgroundLabel);
-        f.add(menu);
+        mainWindowFrame.add(menu);
     }
 
-    //Insipration frame
-    // TODO: all names for methods should be camel cased here and in other places
-    private void createinspiration() {
-        inspr = new Panel();
-        inspr.setLayout(null);
-        inspr.setVisible(true);
-        inspr.setBounds(0, 0, 360, 500);
-        back3 = cb.createSimpleButton("Back");
-        back3.setBounds(110, 410, 120, 40);
-        inspr.add(back3);
-        back3.addActionListener(this);
+    private void createInsipirationFrame() {
+        inspiration = new Panel();
+        inspiration.setLayout(null);
+        inspiration.setVisible(true);
+        inspiration.setBounds(0, 0, 360, 500);
+        backButton3 = createButton.createSimpleButton("Back");
+        backButton3.setBounds(110, 410, 120, 40);
+        inspiration.add(backButton3);
+        backButton3.addActionListener(this);
 
-        ImageIcon background1 = new ImageIcon("Resources/original.jpg");
-        Image img1 = background1.getImage();
-        Image newImg1 = img1.getScaledInstance(360, 500, java.awt.Image.SCALE_SMOOTH);
-        background1 = new ImageIcon(newImg1);
-        JLabel backgroundLabel1 = new JLabel(background1);
+        ImageIcon background = new ImageIcon("Resources/original.jpg");
+        Image backgroundImage = background.getImage();
+        Image newImg1 = backgroundImage.getScaledInstance(360, 500, java.awt.Image.SCALE_SMOOTH);
+        background = new ImageIcon(newImg1);
+        JLabel backgroundLabel1 = new JLabel(background);
         backgroundLabel1.setBounds(0, 0, 360, 500);
-        inspr.add(backgroundLabel1);
+        inspiration.add(backgroundLabel1);
     }
 
-    //NEEDED FOR ADDING INGREDIENTS WHILE CREATING RECIPE
-    private int countAddIngr = 0;  //Counts how many ingredients we are using
-    private List<JLabel> listOfLabels = new ArrayList<JLabel>(); //List of numbers of the ingredients (1,2,...)
-    private List<JLabel> listOfRecipeLabels = new ArrayList<JLabel>(); //List of numbers of the ingredients (1,2,...)
-    private List<JTextArea> listOfTextAreas = new ArrayList<JTextArea>(); //List of text areas of ingredients
+    private int ingredientCount = 0;
+    private List<JLabel> listOfLabels = new ArrayList<JLabel>();
+    private List<JTextArea> listOfTextAreas = new ArrayList<JTextArea>();
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         //TODO: refactor this part, too many if statements (map / switch)
-        if (e.getSource() == myRecipes) {
-            f.remove(menu);
-            myrecipes();
-            f.add(myrcp);
+        if (e.getSource() == myRecipesButton) {
+            mainWindowFrame.remove(menu);
+            createMyRecipesFrame();
+            mainWindowFrame.add(recipe);
         }
-        if (e.getSource() == newRecipe) {
-            f.remove(menu);
-            newrecipe();
-            f.add(newrcp);
+        if (e.getSource() == newRecipeButton) {
+            mainWindowFrame.remove(menu);
+            createNewRecipe();
+            mainWindowFrame.add(newRecipe);
+
         }
-        if (e.getSource() == inspiration) {
-            f.remove(menu);
-            createinspiration();
-            f.add(inspr);
+        if (e.getSource() == inspirationButton) {
+            mainWindowFrame.remove(menu);
+            createInsipirationFrame();
+            mainWindowFrame.add(inspiration);
         }
 
-        if (e.getSource() == back1) {
-            f.remove(myrcp);
+        if (e.getSource() == backButton1) {
+            mainWindowFrame.remove(recipe);
             createMenu();
-            f.add(menu);
+            mainWindowFrame.add(menu);
         }
-        if (e.getSource() == back2) {
-            f.remove(newrcp);
+        if (e.getSource() == backButton2) {
+            mainWindowFrame.remove(newRecipe);
             createMenu();
-            f.add(menu);
-            countAddIngr = 0;
+            mainWindowFrame.add(menu);
+            for (int i = 0; i < ingredientCount; i++) {
+                listOfTextAreas.get(i).setText("");
+            }
+            listOfLabels.clear();
+            ingredientCount = 0;
         }
-        if (e.getSource() == back3) {
-            f.remove(inspr);
+        if (e.getSource() == backButton3) {
+            mainWindowFrame.remove(inspiration);
             createMenu();
-            f.add(menu);
+            mainWindowFrame.add(menu);
         }
-        if (e.getSource() == viewGuide) {
+        if (e.getSource() == viewGuideButton) {
             createGuide();
         }
-        if (e.getSource() == saveGuide) {
+        if (e.getSource() == saveGuideButton) {
             guide = guideArea.getText();
         }
-        if (e.getSource() == addIngr) {
+        if (e.getSource() == addIngredientButton) {
 
-            newRcpPanel.removeAll();
+            newRecipePanel.removeAll();
 
-            JTextArea ingred = new JTextArea();
-            ingred.setSize(100, 200);
-            listOfTextAreas.add(ingred);
-            listOfLabels.add(new JLabel(countAddIngr + 1 + ": "));
+            JTextArea ingredient = new JTextArea();
+            ingredient.setSize(100, 200);
+            listOfTextAreas.add(ingredient);
+            System.out.println(ingredientCount);
+            listOfLabels.add(new JLabel(ingredientCount + 1 + ": "));
 
             GridBagConstraints textFieldConstraints = new GridBagConstraints();
             GridBagConstraints labelConstraints = new GridBagConstraints();
 
-            // Add labels and text fields
-            for (int i = 0; i <= countAddIngr; i++) {
-                // Text field constraints
+            for (int i = 0; i <= ingredientCount; i++) {
+
                 textFieldConstraints.gridx = 1;
                 textFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
                 textFieldConstraints.weightx = 0.5;
                 textFieldConstraints.insets = new Insets(10, 10, 10, 10);
                 textFieldConstraints.gridy = i;
 
-                // Label constraints
                 labelConstraints.gridx = 0;
                 labelConstraints.gridy = i;
                 labelConstraints.insets = new Insets(10, 10, 10, 10);
 
-                // Add them to panel
-                newRcpPanel.add(listOfLabels.get(i), labelConstraints);
-                newRcpPanel.add(listOfTextAreas.get(i), textFieldConstraints);
+                newRecipePanel.add(listOfLabels.get(i), labelConstraints);
+                newRecipePanel.add(listOfTextAreas.get(i), textFieldConstraints);
             }
 
-            // Align components top-to-bottom
             GridBagConstraints c = new GridBagConstraints();
             c.gridx = 0;
-            c.gridy = countAddIngr;
+            c.gridy = ingredientCount;
             c.weighty = 1;
-            newRcpPanel.add(new JLabel(), c);
+            newRecipePanel.add(new JLabel(), c);
 
-            newRcpPanel.updateUI();
-            countAddIngr++;
-            // System.out.println("Ingredient count is: " + countAddIngr);
+            newRecipePanel.updateUI();
+            ingredientCount++;
         }
-        if (e.getSource() == rmIngr) {
-            countAddIngr--;
-            newRcpPanel.remove(listOfLabels.get(countAddIngr));
-            newRcpPanel.remove(listOfTextAreas.get(countAddIngr));
-            newRcpPanel.updateUI();
+        if (e.getSource() == removeIngredientButton) {
+            ingredientCount--;
+            newRecipePanel.remove(listOfLabels.get(ingredientCount));
+            newRecipePanel.remove(listOfTextAreas.get(ingredientCount));
+            newRecipePanel.updateUI();
         }
-        if (e.getSource() == save2) {
-            //  System.out.println("Save is pressed");
+        if (e.getSource() == saveButton) {
             ArrayList<String> listOfIngredients = new ArrayList<String>();
-            for (int i = 0; i < countAddIngr; i++) {
+            for (int i = 0; i < ingredientCount; i++) {
                 listOfIngredients.add(listOfTextAreas.get(i).getText());
             }
 
